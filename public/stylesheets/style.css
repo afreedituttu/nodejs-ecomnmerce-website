@@ -1,0 +1,25 @@
+body {
+  padding: 0px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.product-cntnr{
+  margin: 20px;
+  padding-left : 10px;
+  padding-top: 10px;
+}
+.img{
+  min-width:80px;
+  min-height:80px;
+  max-width:80px;
+  max-height:80px;
+  transition: 0.2s ease;
+}
+.img:hover{
+  position: absolute;
+  width: auto;
+  height: auto;
+}

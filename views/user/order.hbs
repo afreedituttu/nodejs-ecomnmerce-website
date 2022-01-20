@@ -1,0 +1,31 @@
+<form action="" id="checkout-form" >
+    <div class="form-group">
+  <label for="addr">Address :</label>
+  <input type="text" class="form-control" name="address" id="addr">
+    <label for="pcode">Pincode :</label>
+  <input type="text" class="form-control" name="pincode" id="pcode">
+    <label for="mno">Mobile :</label>
+  <input type="text" class="form-control" name="mobile" id="mno">
+  <input type="text" name="user" id="" value="{{user._id}}" hidden>
+</div>
+<section>
+    <h3>Toatal amount : {{total}}</h3>
+    <h4>payment method :</h4>
+    <input type="radio" name="payment-method" value="COD" checked>COD
+    <input type="radio" name="payment-method" value="online-payment">online-payment
+</section>
+<input type="submit">
+</form>
+<script>
+  $("#checkout-form").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:'/place-order',
+      method:'post',
+      data:$('#checkout-form').serialize(),
+      success:(response)=>{
+        location.href = '/complete'
+      }
+    })
+  })
+</script>

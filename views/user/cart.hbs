@@ -1,0 +1,65 @@
+<h1>cart</h1>
+hdlldlcsdsdl
+{{user.name}}
+<section>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Item</th>
+      <th scope="col">image</th>
+      <th scope="col">price</th>
+      <th scope="col">quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+{{#each products}}
+
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{this.products.name}}</td>
+      <td> <img src="/product-images/{{this.products._id}}.jpg" style="min-width:80px;min-height:80px;max-width:80px;max-height:80px;"></td>
+      <td id="price">{{this.products.price}}</td>
+      <td ><button onclick="changeQuantity('{{this._id}}','{{this.products._id}}','{{../user._id}}',1)" class="btn btn-success btn-sm" >+</button>
+       <span id="{{this.products._id}}">{{this.quantity}}</span>
+       <button onclick="changeQuantity('{{this._id}}','{{this.products._id}}','{{../user._id}}',-1)" class="btn btn-danger btn-sm">-</button>
+      </td>
+    </tr>
+{{/each}}
+  </tbody>
+</table>
+</hr>
+<h3 class="float-right">Toatal price : <span id="total">{{products.totalPrice}}</span></h3>
+<a href="/place-order" class="float-right btn btn-success">place-order</a>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  function changeQuantity(cartId,proId,userId,count){
+    console.log(userId)
+    console.log(proId)
+    count = parseInt(count)
+    let quantity = parseInt(document.getElementById(proId).innerHTML)
+    console.log("success to count 1")
+    $.ajax({
+      url:'/change-product-quantity',
+      data:{
+        cart:cartId,
+        product:proId,
+        user:userId,
+        count:count,
+        quantity:quantity
+      },
+      method:'post',
+      success:(response)=>{
+        if(response.removeProduct){
+          alert("Product Removed")
+          location.reload()
+        }else{
+          console.log("ok")
+          document.getElementById(proId).innerHTML=quantity+count
+          document.getElementById("total").innerHTML = response.total
+        }
+      }
+    })
+  }
+</script>
+</section>
